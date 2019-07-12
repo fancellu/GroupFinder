@@ -33,5 +33,6 @@ Looking for buy one, get one free on bananas
            Groups(List(List(Product("banana",10),Product("banana",10))), List(Product("apple",5)))`    
   
 Note, the matched lists are in the order they were found in, as are the unmatched elements
+
 The code is tail recursive, immutable, and does its best to be fairly efficient
 

@@ -12,7 +12,7 @@ This code is quite useful for processing shopping carts, looking for X for Y dea
 
 Run `sbt test` to execute the unit tests
 
-###Usage
+### Usage
 
 e.g.
 

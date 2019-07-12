@@ -6,6 +6,8 @@ whilst returning unmatching elements, without unnecessary changing of order, via
 
 This code is quite useful for processing shopping carts, looking for X for Y deals, or A+B+C deals
 
+[![Build Status](https://travis-ci.org/fancellu/GroupFinder.svg?branch=master)](https://travis-ci.org/fancellu/GroupFinder)
+
 `case class Groups[A](matched: List[List[A]], unmatched: List[A])`
 
 Run `sbt test` to execute the unit tests

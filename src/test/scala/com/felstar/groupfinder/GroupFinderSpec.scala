@@ -4,7 +4,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 class GroupFinderSpec extends WordSpec with Matchers {
 
-  "ByList.remove1st" when {
+  "remove1st" when {
     "handle empty list" should {
       "return empty list" in {
         GroupFinder.remove1st(List.empty[Int], 1) shouldBe empty
@@ -23,7 +23,7 @@ class GroupFinderSpec extends WordSpec with Matchers {
     }
   }
 
-  "ByList.findGroups" when {
+  "findGroups" when {
     import GroupFinder._
     "handle groups" should {
       "return empty everything" in {

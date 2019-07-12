@@ -1,7 +1,7 @@
 
 ## GroupFinder
 
-A simple piece of utility code to take a List and groups its elements based on List membership, 
+A simple piece of utility code to take a List and group its elements based on List membership, 
 whilst returning unmatching elements, without unnecessary changing of order, via Group case class
 
 This code is quite useful for processing shopping carts, looking for X for Y deals, or A+B+C deals

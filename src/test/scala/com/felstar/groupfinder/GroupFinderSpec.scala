@@ -45,9 +45,17 @@ class GroupFinderSpec extends WordSpec with Matchers {
           Groups(List(List("one", "two"), List("two", "one")), List("three"))
       }
       "handle more complex types" in {
-        case class Product(name: String, price: Double)
-        findGroups(List(Product("banana", 10), Product("banana", 10), Product("apple", 5)), List.fill(2)(Product("banana", 10))) shouldBe
-          Groups(List(List(Product("banana", 10), Product("banana", 10))), List(Product("apple", 5)))
+        // partial equality, case classes only check equality for 1st parameter list
+        // https://gist.github.com/fancellu/ec184ab05c41c76e7d614310af508fe1
+        case class Product(name: String)(val price: Double)
+        // we can choose to only supply the name, i.e. partially applied
+        val banana=Product("banana") _
+
+        // note, price is not used for equality, but is still very much present
+        val groups=findGroups(List(banana(10), banana(8), Product("apple")(5)), List.fill(2)(banana(0)))
+        groups.matched shouldBe List(List(banana(0), banana(0)))
+        groups.unmatched shouldBe List(Product("apple")(0))
+        groups.matched.flatMap(_.map(_.price)).sum shouldBe 18
       }
     }
   }

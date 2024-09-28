@@ -1,24 +1,26 @@
 package com.felstar.groupfinder
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 
-class GroupFinderSpec extends WordSpec with Matchers {
+class GroupFinderSpec extends AnyWordSpec with Matchers {
 
   "remove1st" when {
+    import GroupFinder._
     "handle empty list" should {
       "return empty list" in {
-        GroupFinder.remove1st(List.empty[Int], 1) shouldBe empty
+        remove1st(List.empty[Int], 1) shouldBe empty
       }
     }
 
     "remove 1st element" should {
       "return correct list" in {
-        GroupFinder.remove1st(List(1, 2, 3, 1), 1) shouldBe List(2, 3, 1)
+        remove1st(List(1, 2, 3, 1), 1) shouldBe List(2, 3, 1)
       }
     }
     "remove only element" should {
       "return empty list" in {
-        GroupFinder.remove1st(List(1), 1) shouldBe empty
+        remove1st(List(1), 1) shouldBe empty
       }
     }
   }
@@ -31,14 +33,19 @@ class GroupFinderSpec extends WordSpec with Matchers {
       }
       "return 1 pair" in {
         // looking for groups of 1+1
+        findGroup(List(1, 2, 1, 2, 1), List(1, 1)) shouldBe (List(1, 1),List(2, 2, 1))
         findGroups(List(1, 2, 1, 2, 1), List(1, 1)) shouldBe Groups(List(List(1, 1)), List(2, 2, 1))
       }
       "return 2 groups" in {
         // looking for groups of 1+1+2
+        findGroup(List(1, 2, 1, 2, 1, 1, 2), List(2, 1, 1)) shouldBe (List(1, 2, 1),List(2, 1, 1, 2))
+        findGroup(List(2, 1, 1, 2), List(2, 1, 1)) shouldBe (List(2, 1, 1),List(2))
         findGroups(List(1, 2, 1, 2, 1, 1, 2), List(2, 1, 1)) shouldBe Groups(List(List(1, 2, 1), List(2, 1, 1)), List(2))
       }
       "return 0 matched" in {
         findGroups(List(1), List()) shouldBe Groups(List(), List(1))
+        findGroups(List(1), List(2)) shouldBe Groups(List(), List(1))
+        findGroup(List(2, 2, 1), List(1, 1)) shouldBe (List(),List(2, 2, 1))
       }
       "return correctly even with strings" in {
         findGroups(List("one", "two", "two", "one", "three"), List("one", "two")) shouldBe
